@@ -6,6 +6,7 @@ import {
   postReuestFailed,
   postsRecived,
   postsRequested,
+  saveGitDetails,
 } from "./student.reducers";
 import {
   configureStore,
@@ -15,6 +16,8 @@ import {
 
 const initialState = {
   students: [],
+  gitHub: [],
+  value: 0,
   status: "idle", //idle, loading, suceed, failed
   error: "",
   loaded: false,
@@ -32,6 +35,16 @@ export const fetchPost = createAsyncThunk("fetchPost", async () => {
   }
 });
 
+export const fetchGitHub = createAsyncThunk("fetcAPI", async (object) => {
+  console.log(object);
+  try {
+    const response = await fetch("https://api.github.com/users/" + object);
+    return response.json();
+  } catch (error) {
+    return error.message;
+  }
+});
+
 const counterSlice = createSlice({
   name: "Counter",
   initialState: initialState,
@@ -39,11 +52,12 @@ const counterSlice = createSlice({
     incer: studentData,
     decrement: Decrement,
   },
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchPost.pending, postsRequested)
       .addCase(fetchPost.fulfilled, postsRecived)
-      .addCase(fetchPost.rejected, postReuestFailed);
+      .addCase(fetchPost.rejected, postReuestFailed)
+      .addCase(fetchGitHub.fulfilled, saveGitDetails);
   },
 });
 
@@ -53,6 +67,8 @@ export const getStatus = (state) => state.status;
 
 export const geterror = (state) => state.error;
 
+export const number = (state) => state.value;
+
 export const actions = counterSlice.actions;
 
 const dataStore = configureStore({
@@ -60,50 +76,3 @@ const dataStore = configureStore({
 });
 
 export default dataStore;
-
-// function test(){
-//   initialState.students.p
-// }
-
-// getDefaultMiddleware,
-
-// Requested: postsRequested,
-// Recived: postsRecived,
-// ReuestFailed: postReuestFailed,
-// middleware: [...getDefaultMiddleware(), API],
-
-// import { apiCallBegan } from "./Actions";
-// import API from "./middleware/API";
-
-// export const loadAPI = () => (dispatch) => {
-//   return dispatch(
-//     apiCallBegan({
-//       URL,
-//       onStart: actions.Requested.type,
-//       onSucess: actions.Recived.type,
-//       onError: actions.ReuestFailed.type,
-//     })
-//   );
-// };
-
-// const response = await fetch(
-//   "https://api.hatchways.io/assessment/students"
-// ).then((json_response) => {
-//   console.log("2");
-//   return json_response.json;
-// });
-// .then((res) => {
-//   console.log("in 2");
-// return new Promise((resolve, rejected) => {
-//   console.log(res.text);
-//   res.json().then((json_response) => {
-//     console.log("in 2");
-//     return json_response;
-//   });
-// });
-// });
-// response.json().then((json_response) => {
-//   return json_response;
-// });
-//problem here
-// return response.data;
