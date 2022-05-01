@@ -1,0 +1,58 @@
+.displayBody{
+    background-color: white;
+    width: 35%;
+    border-radius: 1%;
+    height: 70%;
+    position: relative;
+}
+
+@media only screen 
+  and (min-device-width: 0px) and (max-device-width: 400px)  {
+    .displayBody{
+        width: 70%;
+    }
+}
+
+.inputDisplay{
+ width: 100%;
+}
+
+.contentDisplay{
+    width: 100%;
+    border-bottom: 1px solid beige;
+    display: flex;
+    padding: 18px 0px 11px 0px;
+}
+
+.ImageDisplay{
+    width: 20%;
+    display: flex;
+    margin-left: 10px;
+}
+
+.studentImage{
+    border-radius: 50%;
+    border: 1px solid #d1d1d1;
+}
+
+.displayStudentContent{
+    width: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.accordion{
+    cursor: pointer;
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: flex-end;
+    
+}
+
+.accordion::after{
+    content: '\002B';
+    color: rgb(2, 0, 0);
+    font-weight: bold;
+    font-size: 40px;
+}
