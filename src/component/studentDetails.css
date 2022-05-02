@@ -1,0 +1,17 @@
+.ImageDisplay{
+    width: 20%;
+    display: flex;
+    margin-left: 10px;
+}
+
+.contentDisplay{
+    width: 100%;
+    border-bottom: 1px solid beige;
+    display: flex;
+    padding: 18px 0px 11px 0px;
+}
+
+.studentImage{
+    border-radius: 50%;
+    border: 1px solid #d1d1d1;
+}

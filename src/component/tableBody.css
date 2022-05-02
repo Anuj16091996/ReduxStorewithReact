@@ -7,7 +7,7 @@
 }
 
 @media only screen 
-  and (min-device-width: 0px) and (max-device-width: 400px)  {
+  and (min-device-width: 0px) and (max-device-width: 414px)  {
     .displayBody{
         width: 70%;
     }
@@ -17,11 +17,17 @@
  width: 100%;
 }
 
-.contentDisplay{
-    width: 100%;
-    border-bottom: 1px solid beige;
-    display: flex;
-    padding: 18px 0px 11px 0px;
+
+.scrollobject{
+    height: 14cm;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;  
+ 
 }
 
 .ImageDisplay{
@@ -33,6 +39,13 @@
 .studentImage{
     border-radius: 50%;
     border: 1px solid #d1d1d1;
+}
+
+.contentDisplay{
+    width: 100%;
+    border-bottom: 1px solid beige;
+    display: flex;
+    padding: 18px 0px 11px 0px;
 }
 
 .displayStudentContent{

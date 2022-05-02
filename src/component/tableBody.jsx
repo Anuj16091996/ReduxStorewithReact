@@ -1,12 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./tableBody.css";
 import SearchType from "./searchType";
 import PlaceHolder from "../Images/placeholder.png";
+import { fetchPost, getStatus, allStudentsDetails } from "../redux";
+import { useDispatch, useSelector } from "react-redux";
+import StudentsComponenet from "./studentDeatils";
 
 function TableBody() {
-  const [userSearchName, setSearchName] = useState([]);
-  const [userSearchTag, setSearchTag] = useState([]);
+  const [userSearchName, setSearchName] = useState("");
+  const [userSearchTag, setSearchTag] = useState("");
+  const [data, SetData] = useState([]);
+
+  const StudentDetails = useSelector(allStudentsDetails);
 
   const getUserSearch = (event) => {
     if (event.target.id === "Name") {
@@ -17,7 +23,7 @@ function TableBody() {
   };
 
   return (
-    <div className="displayBody">
+    <div className="displayBody scrollobject">
       <div className="inputDisplay">
         <SearchType
           placeholder="Search By Name"
@@ -34,22 +40,14 @@ function TableBody() {
         />
       </div>
 
-      <div className="contentDisplay">
-        <div className="ImageDisplay">
-          <img
-            className="studentImage"
-            src={PlaceHolder}
-            alt="Cover_Image"
-            height="50px"
-            width="50px"
-          />
-        </div>
+      {console.log(StudentDetails)}
 
-        <div className="displayStudentContent">Hello</div>
-        <div className="accordion"></div>
-      </div>
+      <StudentsComponenet />
     </div>
   );
 }
 
 export default TableBody;
+
+// const [studentDeails, setStudentDetails] = useState([]);
+// const dispatch = useDispatch();
