@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import {
-  studentData,
+  setStudentID,
   Decrement,
   postReuestFailed,
   postsRecived,
@@ -18,6 +18,7 @@ const initialState = {
   students: [],
   gitHub: [],
   value: 0,
+  userID: null,
   status: "idle", //idle, loading, suceed, failed
   error: "",
   loaded: false,
@@ -28,7 +29,6 @@ export const fetchPost = createAsyncThunk("fetchPost", async () => {
     const response = await fetch(
       "https://api.hatchways.io/assessment/students"
     );
-
     return response.json();
   } catch (error) {
     return error.message;
@@ -49,8 +49,7 @@ const counterSlice = createSlice({
   name: "Counter",
   initialState: initialState,
   reducers: {
-    incer: studentData,
-    decrement: Decrement,
+    setUserID: setStudentID,
   },
   extraReducers: (builder) => {
     builder
@@ -68,6 +67,8 @@ export const getStatus = (state) => state.status;
 export const geterror = (state) => state.error;
 
 export const number = (state) => state.value;
+
+export const userID = (state) => state.userID;
 
 export const actions = counterSlice.actions;
 

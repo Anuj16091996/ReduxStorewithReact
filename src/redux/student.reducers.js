@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-export function studentData(state, action) {
-  state.value++;
-}
+export const setStudentID = (state, action) => {
+  state.userID = action.payload;
+};
 
 export function Decrement(state, action) {
   state.counter += action.payload;
@@ -17,9 +17,11 @@ export const saveGitDetails = (state, action) => {
 };
 
 export const postsRecived = (state, action) => {
-  state.status = "Sucess";
-  const loadedPost = action.payload;
-  state.students = state.students.concat(loadedPost.students);
+  if (state.status != "Sucess") {
+    state.status = "Sucess";
+    const loadedPost = action.payload;
+    state.students = state.students.concat(loadedPost.students);
+  }
 };
 
 export const GitAdd = (state, action) => {

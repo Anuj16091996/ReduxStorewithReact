@@ -15,3 +15,42 @@
     border-radius: 50%;
     border: 1px solid #d1d1d1;
 }
+
+.titleAlign{
+    padding: 0px 0px 10px 0px;
+    margin: 0px 0px 0px -5px;
+}
+
+.panel {
+    padding-top:15px ;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+
+/* For Mobile */
+@media only screen 
+  and (min-device-width: 0px) and (max-device-width: 414px)  {
+     .tableContent{
+        font-size: 10px;
+    }
+
+    .ImageDisplay{
+        width: 23%;
+    }
+}
+
+/* For Tablet */
+@media only screen 
+  and (min-device-width: 415px) and (max-device-width: 800px)  {
+     .tableContent{
+        font-size: 10px;
+    }
+
+    .ImageDisplay{
+        width: 23%;
+    }
+}
+
+
