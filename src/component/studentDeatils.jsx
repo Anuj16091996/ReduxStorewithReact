@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React from "react";
 import PlaceHolder from "../Images/placeholder.png";
 import "./studentDetails.css";
 
@@ -41,11 +41,7 @@ function StudentsDetails(props) {
               <td>Average: {props.average}</td>
             </tr>
 
-            {props.selectedId != undefined
-              ? console.log(props.selectedId)
-              : null}
-
-            <section className="panel">
+            <section className="panel" ref={props.panelRef}>
               <table>
                 <tbody>
                   {props.grades.map((data, id) => {
@@ -63,15 +59,21 @@ function StudentsDetails(props) {
           </tbody>
         </table>
       </div>
-      <div className="accordion" onClick={() => props.showAccordion(props.id)}>
-        {props.selectedId != undefined ? console.log(props.selectedId) : null};
-      </div>
+      {props.selectedid == props.id && props.displayActive ? (
+        <div
+          className="accordion active"
+          ref={props.accordion}
+          onClick={() => props.showAccordion(props.id)}
+        ></div>
+      ) : (
+        <div
+          className="accordion"
+          ref={props.accordion}
+          onClick={() => props.showAccordion(props.id)}
+        ></div>
+      )}
     </div>
   );
 }
 
 export default StudentsDetails;
-
-{
-  /* {this.props.id} */
-}

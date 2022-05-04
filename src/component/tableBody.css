@@ -63,18 +63,3 @@
     justify-content: flex-start;
 }
 
-.accordion{
-    cursor: pointer;
-    display: flex;
-    width: 25%;
-    align-items: center;
-    justify-content: flex-end;
-    
-}
-
-.accordion::after{
-    content: '\002B';
-    color: rgb(2, 0, 0);
-    font-weight: bold;
-    font-size: 40px;
-}

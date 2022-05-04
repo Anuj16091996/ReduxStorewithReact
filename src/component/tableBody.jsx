@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./tableBody.css";
 import SearchType from "./searchType";
-import { allStudentsDetails, number, userID } from "../redux";
-import { useDispatch, useSelector } from "react-redux";
+import { allStudentsDetails } from "../redux";
+import { useSelector } from "react-redux";
 import StudentsComponenet from "./studentDeatils";
 
 function TableBody() {
@@ -12,6 +12,9 @@ function TableBody() {
   const [data, SetData] = useState([]);
   const StudentDetails = useSelector(allStudentsDetails);
   const [studentId, setStudentid] = useState();
+  const panel = useRef(null);
+  const accordion = useRef(null);
+  const [accordionElement, setAccordion] = useState(false);
 
   const getUserSearch = (event) => {
     if (event.target.id === "Name") {
@@ -22,7 +25,12 @@ function TableBody() {
   };
 
   const showAccordion = (id) => {
-    setStudentid(id);
+    if (studentId != id) {
+      setStudentid(id);
+      setAccordion(true);
+    } else {
+      accordionElement ? setAccordion(false) : setAccordion(true);
+    }
   };
 
   return (
@@ -56,8 +64,11 @@ function TableBody() {
             pic={studentInfomation.pic}
             skill={studentInfomation.skill}
             id={studentInfomation.id}
+            displayActive={accordionElement}
+            panelRef={panel}
+            selectedid={studentId}
+            accordion={accordion}
             showAccordion={showAccordion.bind(this)}
-            selectedId={studentId}
             average={
               studentInfomation.grades.reduce((a, b) => a + parseFloat(b), 0) /
               studentInfomation.grades.length
@@ -73,3 +84,16 @@ export default TableBody;
 
 // const [studentDeails, setStudentDetails] = useState([]);
 // const dispatch = useDispatch();
+
+// rerender ? setRender(false) : setRender(true);
+// const pannel = panel.current;
+// const accordionEle = accordion.current;
+// if (accordionEle.className == "accordion") {
+//   accordionEle.className = "accordion active";
+//   console.log(accordionEle);
+// } else {
+//   accordionEle.className = "accordion";
+//   console.log(accordionEle);
+// }
+
+// const [rerender, setRender] = useState(false);
