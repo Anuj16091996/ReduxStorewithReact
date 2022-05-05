@@ -41,20 +41,70 @@ function StudentsDetails(props) {
               <td>Average: {props.average}</td>
             </tr>
 
-            <section className="panel" ref={props.panelRef}>
-              <table>
-                <tbody>
-                  {props.grades.map((data, id) => {
+            {props.tag.length != 0 ? (
+              <tr>
+                <td>
+                  {props.tag.map((data, id) => {
                     return (
-                      <tr key={id}>
-                        <td>
-                          Test{id + 1}: {data}
-                        </td>
-                      </tr>
+                      <button key={id} className="tagbutton">
+                        {data}
+                      </button>
                     );
                   })}
-                </tbody>
-              </table>
+                </td>
+              </tr>
+            ) : null}
+
+            {props.selectedid == props.id && props.displayActive ? (
+              <section
+                className="panel.style.overflow=visible"
+                ref={props.panelRef}
+              >
+                <table>
+                  <tbody>
+                    {props.grades.map((data, id) => {
+                      return (
+                        <tr key={id}>
+                          <td>
+                            Test{id + 1}: {data}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </section>
+            ) : (
+              <section className="panel ">
+                <table>
+                  <tbody>
+                    {props.grades.map((data, id) => {
+                      return (
+                        <tr key={id}>
+                          <td>
+                            Test{id + 1}: {data}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </section>
+            )}
+
+            <section ref={props.studentTag}>
+              <input
+                id={props.id}
+                className="inputborder"
+                type="text"
+                placeholder="Add a tag"
+                onKeyPress={(event) => {
+                  if (event.key === "Enter") {
+                    props.addTag(props.id, event);
+                    // addTag();
+                  }
+                }}
+              />
             </section>
           </tbody>
         </table>
@@ -77,3 +127,16 @@ function StudentsDetails(props) {
 }
 
 export default StudentsDetails;
+
+// import { useDispatch } from "react-redux";
+// import { actions } from "../redux";
+// const dispatch = useDispatch();
+
+// const addTag = (studentId, event) => {
+//   const userInput = event.target.value;
+//   const object = {
+//     tagDetails: userInput,
+//     studentId: studentId,
+//   };
+//   dispatch(actions.setTag(object));
+// };

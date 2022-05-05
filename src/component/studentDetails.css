@@ -50,6 +50,15 @@
     transition: max-height 0.2s ease-out;
   }
 
+
+  .tagbutton{
+    padding: 8px;
+    margin: 7px 5px 4px 5px;
+    background: #d1d1d1;
+    color: black;
+    border-radius: 5px;
+}
+
 /* For Mobile */
 @media only screen 
   and (min-device-width: 0px) and (max-device-width: 414px)  {

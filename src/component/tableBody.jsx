@@ -1,20 +1,21 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "./tableBody.css";
 import SearchType from "./searchType";
-import { allStudentsDetails } from "../redux";
-import { useSelector } from "react-redux";
+import { allStudentsDetails, actions, studentSearch } from "../redux";
+import { useSelector, useDispatch } from "react-redux";
 import StudentsComponenet from "./studentDeatils";
 
 function TableBody() {
+  const textElements = [];
   const [userSearchName, setSearchName] = useState("");
   const [userSearchTag, setSearchTag] = useState("");
-  const [data, SetData] = useState([]);
-  const StudentDetails = useSelector(allStudentsDetails);
+  const StudentDetails = useSelector(studentSearch);
+  // const StudentDetails = useSelector(allStudentsDetails);
   const [studentId, setStudentid] = useState();
-  const panel = useRef(null);
-  const accordion = useRef(null);
   const [accordionElement, setAccordion] = useState(false);
+  const dispatch = useDispatch();
+  // const searchStudent = useSelector(studentSearch);
 
   const getUserSearch = (event) => {
     if (event.target.id === "Name") {
@@ -22,6 +23,16 @@ function TableBody() {
     } else {
       setSearchTag(event.target.value);
     }
+  };
+
+  const addTag = (StudentId, event) => {
+    const userInput = event.target.value;
+    event.target.value = "";
+    const object = {
+      tagDetails: userInput,
+      studentId: StudentId,
+    };
+    dispatch(actions.setTag(object));
   };
 
   const showAccordion = (id) => {
@@ -64,11 +75,11 @@ function TableBody() {
             pic={studentInfomation.pic}
             skill={studentInfomation.skill}
             id={studentInfomation.id}
+            tag={studentInfomation.tag}
             displayActive={accordionElement}
-            panelRef={panel}
             selectedid={studentId}
-            accordion={accordion}
             showAccordion={showAccordion.bind(this)}
+            addTag={addTag.bind(this)}
             average={
               studentInfomation.grades.reduce((a, b) => a + parseFloat(b), 0) /
               studentInfomation.grades.length
@@ -97,3 +108,8 @@ export default TableBody;
 // }
 
 // const [rerender, setRender] = useState(false);
+// accordion={accordion}
+// panelRef={panel}
+// const panel = useRef(null);
+// const accordion = useRef(null);
+// const [data, SetData] = useState([]);

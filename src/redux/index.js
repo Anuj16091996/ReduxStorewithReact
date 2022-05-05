@@ -2,7 +2,7 @@
 
 import {
   setStudentID,
-  Decrement,
+  setStudentTag,
   postReuestFailed,
   postsRecived,
   postsRequested,
@@ -17,6 +17,7 @@ import {
 const initialState = {
   students: [],
   gitHub: [],
+  searchDetails: [],
   value: 0,
   userID: null,
   status: "idle", //idle, loading, suceed, failed
@@ -50,6 +51,7 @@ const counterSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUserID: setStudentID,
+    setTag: setStudentTag,
   },
   extraReducers: (builder) => {
     builder
@@ -69,6 +71,8 @@ export const geterror = (state) => state.error;
 export const number = (state) => state.value;
 
 export const userID = (state) => state.userID;
+
+export const studentSearch = (state) => state.searchDetails;
 
 export const actions = counterSlice.actions;
 
