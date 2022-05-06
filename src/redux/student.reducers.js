@@ -9,10 +9,48 @@ export const setStudentTag = (state, action) => {
   const oldstate = state.searchDetails;
   const newState = oldstate.map((data) => {
     if (data.id == studentId) data.tag.push(tagDetails);
-
     return data;
   });
   state.searchDetails = newState;
+  state.tempDetails = newState;
+};
+
+export const searchStudent = (state, action) => {
+  const type = action.payload.type;
+  const searchValue = action.payload.searcValue;
+  const studentDetails = action.payload.StudentDetails;
+  if (type == "name") {
+    const finaldata = studentDetails
+      .filter((arrayValues) =>
+        arrayValues.fullname.toLowerCase().includes(searchValue.toLowerCase())
+      )
+      .map((filterData) => {
+        return filterData;
+      });
+
+    state.tempDetails = finaldata;
+  } else {
+    if (searchValue != "") {
+      let finalObject = [];
+      studentDetails.forEach((Objects) => {
+        if (Objects.tag.length > 0) {
+          Objects.tag.forEach((filter) => {
+            if (filter.toLowerCase().includes(searchValue.toLowerCase())) {
+              finalObject.push(Objects);
+            }
+          });
+        }
+      });
+      finalObject = finalObject.filter(
+        (ele, ind) =>
+          ind === finalObject.findIndex((elem) => elem.id === ele.id)
+      );
+
+      state.tempDetails = finalObject;
+    } else {
+      state.tempDetails = studentDetails;
+    }
+  }
 };
 
 export const postsRequested = (state, action) => {
@@ -33,14 +71,16 @@ export const postsRecived = (state, action) => {
     const newState = state.students.map((data) => ({
       ...data,
       tag: [],
+      fullname: data.firstName + " " + data.lastName,
     }));
     state.searchDetails = newState;
+    state.tempDetails = newState;
   }
 };
 
 export const GitAdd = (state, action) => {
   const loadedPost = action.payload;
-  console.log("loadedPost.login");
+
   state.gitHub = state.gitHub.concat(loadedPost);
 };
 

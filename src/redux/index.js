@@ -7,6 +7,7 @@ import {
   postsRecived,
   postsRequested,
   saveGitDetails,
+  searchStudent,
 } from "./student.reducers";
 import {
   configureStore,
@@ -18,6 +19,7 @@ const initialState = {
   students: [],
   gitHub: [],
   searchDetails: [],
+  tempDetails: [],
   value: 0,
   userID: null,
   status: "idle", //idle, loading, suceed, failed
@@ -52,6 +54,7 @@ const counterSlice = createSlice({
   reducers: {
     setUserID: setStudentID,
     setTag: setStudentTag,
+    searchData: searchStudent,
   },
   extraReducers: (builder) => {
     builder
@@ -73,6 +76,8 @@ export const number = (state) => state.value;
 export const userID = (state) => state.userID;
 
 export const studentSearch = (state) => state.searchDetails;
+
+export const renderDetails = (state) => state.tempDetails;
 
 export const actions = counterSlice.actions;
 

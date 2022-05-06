@@ -2,26 +2,32 @@
 import React, { useState, useRef } from "react";
 import "./tableBody.css";
 import SearchType from "./searchType";
-import { allStudentsDetails, actions, studentSearch } from "../redux";
+import { actions, studentSearch, renderDetails } from "../redux";
 import { useSelector, useDispatch } from "react-redux";
 import StudentsComponenet from "./studentDeatils";
 
 function TableBody() {
-  const textElements = [];
-  const [userSearchName, setSearchName] = useState("");
-  const [userSearchTag, setSearchTag] = useState("");
-  const StudentDetails = useSelector(studentSearch);
-  // const StudentDetails = useSelector(allStudentsDetails);
+  const studentSearchDetails = useSelector(studentSearch);
+  const renderStudent = useSelector(renderDetails);
   const [studentId, setStudentid] = useState();
   const [accordionElement, setAccordion] = useState(false);
   const dispatch = useDispatch();
-  // const searchStudent = useSelector(studentSearch);
 
   const getUserSearch = (event) => {
     if (event.target.id === "Name") {
-      setSearchName(event.target.value);
+      const object = {
+        StudentDetails: studentSearchDetails,
+        type: "name",
+        searcValue: event.target.value,
+      };
+      dispatch(actions.searchData(object));
     } else {
-      setSearchTag(event.target.value);
+      const object = {
+        StudentDetails: studentSearchDetails,
+        type: "tag",
+        searcValue: event.target.value,
+      };
+      dispatch(actions.searchData(object));
     }
   };
 
@@ -61,7 +67,9 @@ function TableBody() {
           getUserType={getUserSearch.bind(this)}
         />
       </div>
-      {StudentDetails.map((studentInfomation, id) => {
+
+      <br></br>
+      {renderStudent.map((studentInfomation, id) => {
         return (
           <StudentsComponenet
             key={id}
@@ -92,24 +100,3 @@ function TableBody() {
 }
 
 export default TableBody;
-
-// const [studentDeails, setStudentDetails] = useState([]);
-// const dispatch = useDispatch();
-
-// rerender ? setRender(false) : setRender(true);
-// const pannel = panel.current;
-// const accordionEle = accordion.current;
-// if (accordionEle.className == "accordion") {
-//   accordionEle.className = "accordion active";
-//   console.log(accordionEle);
-// } else {
-//   accordionEle.className = "accordion";
-//   console.log(accordionEle);
-// }
-
-// const [rerender, setRender] = useState(false);
-// accordion={accordion}
-// panelRef={panel}
-// const panel = useRef(null);
-// const accordion = useRef(null);
-// const [data, SetData] = useState([]);
